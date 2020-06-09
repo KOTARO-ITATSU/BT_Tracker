@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.MainButton1:
-            // If MainButton1 is clicked, do something
+                // If MainButton1 is clicked, do something
                 Intent toLog = new Intent(this, LogActivity.class);
                 startActivity(toLog);
                 break;
             case R.id.MainButton2:
-            // If MainButton2 is clicked, do something
+                // If MainButton2 is clicked, do something
                 Intent toNormal = new Intent(this, NormalActivity.class);
                 startActivity(toNormal);
                 break;
@@ -54,16 +54,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(toMechanism);
                 break;
             case R.id.MainButton4:
-             // If MainButton4 is clicked, do something
+                // If MainButton4 is clicked, do something
                 Intent openFeverLink = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://www.healthline.com/health/how-to-break-a-fever"));
 // Verify that the intent openFeverLink will resolve properly
-                if(openFeverLink.resolveActivity(getPackageManager()) != null){
+                if (openFeverLink.resolveActivity(getPackageManager()) != null) {
                     startActivity(openFeverLink);
                 }
                 break;
+            case R.id.setReminderButton:
+                // When user clicks "SET REMINDER" button, a toast message will pop up to let user know that a reminder is set
+                Toast.makeText(this, "Reminder set!", Toast.LENGTH_SHORT).show();
+                // Create an intent object to start the ReminderBroadcastReceiver class
+                Intent intent = new Intent(this, ReminderBroadcastReceiver.class);
+                // Create a pending intent so that the intent object above will only fire when alarm triggers
+                PendingIntent pd = PendingIntent.getBroadcast(this, 0, intent, 0);
+                // create an AlarmManager
+                AlarmManager alarmManager =
+                        (AlarmManager) getSystemService(ALARM_SERVICE);
+                // Repeating interval for the alarmManager is set to 6 second for demonstration purpose
+                // In real world application, users may want to get daily reminder
+                // In that case, set the interval to 1000 * 60 * 60 * 24
+                long interval = 1000 * 6;
+                // set up a repeating alarm so that the notification reminder gets fired at the set interval
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                        System.currentTimeMillis(), interval, pd);
+                break;
         }
-    }
+
+
+
+
+
+
+
+        }
+
 
 
 
@@ -108,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 notificationManager.createNotificationChannel(channel);
                }
             }
-        }
+         }
 
 
 
