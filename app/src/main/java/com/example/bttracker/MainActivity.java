@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(toHandle);
     }
 
-    
+
         private void createNotificationChannel() {
             // First, check SDK version
             // Create notification channel only if SDK version > Android 8 Oreo
