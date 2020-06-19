@@ -17,6 +17,9 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String TKG = "onReceive";
+
+        Log.d(TKG, "start building notification");
 
         Intent notificationIntent = new Intent(context, LogActivity.class);
 
@@ -34,10 +37,12 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
                 .setContentText("Please log your body temperature now")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(contentIntent);
+        Log.d(TKG, "finish building notification");
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
+        Log.d(TKG, "notification fired");
 
 
 
